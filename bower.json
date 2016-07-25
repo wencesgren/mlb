@@ -1,0 +1,22 @@
+{
+  "name": "Mlb",
+  "description": "Konrad Test",
+  "version": "0.0.1",
+  "homepage": " ",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-route": "^1.5.5",
+    "angular-loader": "^1.5.5",
+    "angular-mocks": "^1.5.5",
+    "html5-boilerplate": "~5.2.0",
+    "angular-animate": "^1.5.5",
+    "angular-aria": "^1.5.5",
+    "angular-material": "^1.0.7",
+    "angular-messages": "^1.5.5",
+    "moment": "^2.14.1",
+    "angular-local-storage": "^0.2.7",
+    "angular-material-data-table": "^0.10.9"
+  }
+}

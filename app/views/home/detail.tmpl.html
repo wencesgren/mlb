@@ -1,0 +1,197 @@
+<md-dialog ng-cloak flex>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{ game.title }}</h2>
+        <h2 ng-if="game.scored === false">
+          &nbsp;-&nbsp;{{ game.time }}
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon> clear </md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content class="detail-dialog" ng-class="rowClass(game)" flex>
+      <div class="md-dialog-content" flex layout="row" layout-wrap>
+        <div class="teams" layout="row"  flex layout-wrap >
+          <div class="team team-away" layout="row"  flex="40" layout-wrap>
+            <div class="team-info" flex="70" layout="row" layout-wrap>
+              <div class="team-info__logo" style="background-image: url({{ game.awayTeam.logo }})" flex="30">
+                <md-button class="md-icon-button md-primary" ng-if="!game.awayTeam.is_favourite" ng-click="follow(game.awayTeam, 'awayTeam' )">
+                  <md-icon > star_border </md-icon>
+                </md-button>
+                <md-button class="md-icon-button md-primary" ng-if="game.awayTeam.is_favourite">
+                  <md-icon class="md-primary" > star </md-icon>
+                </md-button>
+              </div>
+              <p class="team-info__name" flex="70">{{ game.awayTeam.name }}</p>
+            </div>
+
+            <div class="team-score" flex="30">
+              <h2 ng-if="game.scored === true">
+                {{ game.awayTeam.runs }}
+              </h2>
+              <p ng-if="game.scored === false">
+                {{ game.awayTeam.stats }}
+              </p>
+            </div>
+          </div>
+          <div class="status" flex="20">
+            <p>{{ game.status }}</p>
+          </div>
+          <div class="team team-home" layout="row" flex="40" layout-wrap>
+            <div class="team-score" flex="30">
+              <h2 ng-if="game.scored === true">
+                {{ game.homeTeam.runs }}
+              </h2>
+              <p ng-if="game.scored === false">
+                {{ game.homeTeam.stats }}
+              </p>
+            </div>
+
+            <div class="team-info" flex="70" layout="row" layout-wrap>
+              <p class="team-info__name" flex="70">{{ game.homeTeam.name }}</p>
+              <div class="team-info__logo" style="background-image: url({{ game.homeTeam.logo }})" flex="30">
+                <md-button class="md-icon-button md-primary" ng-if="!game.homeTeam.is_favourite" ng-click="follow(game.homeTeam, 'homeTeam' )">
+                  <md-icon > star_border </md-icon>
+                </md-button>
+                <md-button class="md-icon-button md-primary" ng-if="game.homeTeam.is_favourite">
+                  <md-icon class="md-primary" > star </md-icon>
+                </md-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <md-divider ></md-divider>
+      <div class="game-info" flex>
+        <p class="md-body-2">Stadium: {{ game.stadium }}</p>
+      </div>
+      <md-progress-circular md-mode="indeterminate" ng-hide="boxscore"></md-progress-circular>
+      <md-table-container ng-if="boxscore">
+        <table md-table md-progress="promise">
+          <thead md-head>
+            <tr md-row>
+              <th md-column><span></span></th>
+              <th md-column md-numeric>1</th>
+              <th md-column md-numeric>2</th>
+              <th md-column md-numeric>3</th>
+              <th md-column md-numeric>4</th>
+              <th md-column md-numeric>5</th>
+              <th md-column md-numeric>6</th>
+              <th md-column md-numeric>7</th>
+              <th md-column md-numeric>8</th>
+              <th md-column md-numeric>9</th>
+              <th md-column md-numeric>R</th>
+              <th md-column md-numeric>H</th>
+              <th md-column md-numeric>E</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row>
+              <td md-cell>
+                {{ game.awayTeam.name_abbrev }}
+              </td>
+              <td md-cell ng-repeat="score in boxscore.linescore.inning_line_score">
+                {{ score.away }}
+              </td>
+              <td md-cell>
+                {{ boxscore.linescore.away_team_runs }}
+              </td>
+              <td md-cell>
+                {{ boxscore.linescore.away_team_hits }}
+              </td>
+              <td md-cell>
+                {{ boxscore.linescore.away_team_errors }}
+              </td>
+            </tr>
+            <tr md-row>
+              <td md-cell>
+                {{ game.homeTeam.name_abbrev }}
+              </td>
+              <td md-cell ng-repeat="score in boxscore.linescore.inning_line_score">
+                {{ score.home }}
+              </td>
+              <td md-cell>
+                {{ boxscore.linescore.home_team_runs }}
+              </td>
+              <td md-cell>
+                {{ boxscore.linescore.home_team_hits }}
+              </td>
+              <td md-cell>
+                {{ boxscore.linescore.home_team_errors }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-tabs md-border-top md-center-tabs md-stretch-tabs="always" md-dynamic-height ng-if="boxscore">
+            <md-tab label="{{ game.awayTeam.name_abbrev }}">
+              <md-content class="md-padding">
+                <md-table-container ng-if="boxscore">
+                  <table md-table md-progress="promise">
+                    <thead md-head>
+                      <tr md-row>
+                        <th md-column><span>Name</span></th>
+                        <th md-column md-numeric>AB</th>
+                        <th md-column md-numeric>R</th>
+                        <th md-column md-numeric>H</th>
+                        <th md-column md-numeric>RBI</th>
+                        <th md-column md-numeric>BB</th>
+                        <th md-column md-numeric>SO</th>
+                        <th md-column md-numeric>AVG</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr md-row md-body ng-repeat="batter in boxscore.batting[1].batter">
+                        <td md-cell>{{ batter.name }}</td>
+                        <td md-cell>{{ batter.ab }}</td>
+                        <td md-cell>{{ batter.r }}</td>
+                        <td md-cell>{{ batter.h }}</td>
+                        <td md-cell>{{ batter.rbi }}</td>
+                        <td md-cell>{{ batter.bb }}</td>
+                        <td md-cell>{{ batter.so }}</td>
+                        <td md-cell>{{ batter.avg }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </md-table-container>
+              </md-content>
+            </md-tab>
+            <md-tab label="{{ game.homeTeam.name_abbrev }}">
+              <md-content class="md-padding">
+                <md-table-container ng-if="boxscore">
+                  <table md-table md-progress="promise">
+                    <thead md-head>
+                      <tr md-row>
+                        <th md-column><span>Name</span></th>
+                        <th md-column md-numeric>AB</th>
+                        <th md-column md-numeric>R</th>
+                        <th md-column md-numeric>H</th>
+                        <th md-column md-numeric>RBI</th>
+                        <th md-column md-numeric>BB</th>
+                        <th md-column md-numeric>SO</th>
+                        <th md-column md-numeric>AVG</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr md-row md-body ng-repeat="batter in boxscore.batting[0].batter">
+                        <td md-cell>{{ batter.name }}</td>
+                        <td md-cell>{{ batter.ab }}</td>
+                        <td md-cell>{{ batter.r }}</td>
+                        <td md-cell>{{ batter.h }}</td>
+                        <td md-cell>{{ batter.rbi }}</td>
+                        <td md-cell>{{ batter.bb }}</td>
+                        <td md-cell>{{ batter.so }}</td>
+                        <td md-cell>{{ batter.avg }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </md-table-container>
+              </md-content>
+            </md-tab>
+          </md-tabs>
+    </md-dialog-content>
+  </form>
+</md-dialog>

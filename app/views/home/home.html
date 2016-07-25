@@ -1,0 +1,23 @@
+<div class="wrapper" layout="column" tabindex="-1" flex>
+  <md-list class="favourites home-list">
+    <md-subheader class="md-no-sticky">
+      <md-button class="md-primary favourites-button" ng-click="showTeams()">
+        <md-icon> settings </md-icon>
+        Favourites
+      </md-button>
+    </md-subheader>
+    <md-divider ></md-divider>
+    <md-list-item class="md-2-line" ng-repeat="game in filteredGames = (games | filter:{ is_sticky: true })" ng-class="rowClass(game)" layout="row" layout-wrap>
+      <fixture game="game" layout="row" flex layout-wrap></fixture>
+    </md-list-item>
+  </md-list>
+  <md-list class="home-list">
+    <md-list-item class="md-2-line" ng-class="rowClass(game)" ng-repeat="game in filteredGames = (games | filter:{ is_sticky: false})" layout="row" layout-wrap>
+      <fixture game="game" layout="row" flex layout-wrap></fixture>
+    </md-list-item>
+  </md-list>
+  <div class="list-empty" ng-if="empty" flex>
+    <md-icon class="md-primary"> event_busy </md-icon>
+    <p>There are no games on this day</p>
+  </div>
+</div>

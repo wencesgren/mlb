@@ -1,0 +1,28 @@
+<md-dialog ng-cloak flex>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Favourites</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon> clear </md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content class="teams-dialog" flex>
+      <div class="md-dialog-content">
+        <md-list class="favourites">
+          <md-list-item ng-repeat="team in teams">
+            <div class="team-info" layout="row" layout-wrap flex>
+              <div class="team-info__logo" style="background-image: url({{ team.logo }})" flex="20"></div>
+              <p class="team-info__name " flex="70">{{ team.name }}</p>
+            </div>
+            <md-button class="md-icon-button md-primary" ng-click="remove($index)">
+              <md-icon> remove_circle </md-icon>
+            </md-button>
+          </md-list-item>
+        </md-list>
+      </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>

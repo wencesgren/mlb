@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js" ng-controller="SiteCtrl"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Major League Baseball</title>
+  <base href="/">
+  <meta name="description" content="Mlb score app">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="./img/favicon.ico">
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.min.css">
+  <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body layout="column">
+  <md-toolbar md-scroll-shrink>
+    <h1 id="logo">Major League Baseball</h1>
+    <div class="navigation" flex>
+      <div class="navigation__content wrapper" flex layout="row" layout-wrap>
+        <div class="button__container" flex="20">
+          <md-button ng-click="date.previous(); updateList()">
+            <md-icon> keyboard_arrow_left </md-icon>
+          </md-button>
+        </div>
+        <div class="datepicker__container" flex="60" layout="row" layout-wrap>
+          <md-datepicker ng-model="myDate" md-placeholder="Enter date" ng-model="myDate" ng-change="date.set(myDate); updateList()"
+                md-open-on-focus></md-datepicker>
+          <div>{{ date.format(date.get()) }}</div>
+        </div>
+        <div class="button__container" flex="20">
+          <md-button ng-click="date.next(); updateList()">
+            <md-icon> keyboard_arrow_right </md-icon>
+          </md-button>
+        </div>
+      </div>
+    </div>
+  </md-toolbar>
+  <md-content flex>
+    <div ng-view  class="page {{ pageClass }}" ></div>
+  </md-content>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-aria/angular-aria.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+  <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc.5/angular-material.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="app.js"></script>
+  <script src="views/home/home.js"></script>
+</body>
+</html>
