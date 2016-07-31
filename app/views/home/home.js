@@ -49,7 +49,6 @@ angular.module('myApp.views.home', ['ngRoute'])
   });
 
   $scope.showDetail = function(ev, game) {
-    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
     $mdDialog.show({
       controller: DetailDialogController,
@@ -57,7 +56,7 @@ angular.module('myApp.views.home', ['ngRoute'])
       parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose: true,
-      fullscreen: useFullScreen,
+      fullscreen: true,
       locals: {
         game: game
       },
@@ -67,16 +66,9 @@ angular.module('myApp.views.home', ['ngRoute'])
     }, function() {
       $scope.updateList();
     });
-
-    $scope.$watch(function() {
-      return $mdMedia('xs') || $mdMedia('sm');
-    }, function(wantsFullScreen) {
-      $scope.customFullscreen = (wantsFullScreen === true);
-    });
   };
 
   $scope.showTeams = function(ev) {
-    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
     $mdDialog.show({
       controller: TeamsController,
@@ -84,18 +76,12 @@ angular.module('myApp.views.home', ['ngRoute'])
       parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose: true,
-      fullscreen: useFullScreen,
+      fullscreen: true,
     })
     .then(function(answer) {
 
     }, function() {
       $scope.updateList();
-    });
-
-    $scope.$watch(function() {
-      return $mdMedia('xs') || $mdMedia('sm');
-    }, function(wantsFullScreen) {
-      $scope.customFullscreen = (wantsFullScreen === true);
     });
   };
 
